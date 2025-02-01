@@ -12,17 +12,24 @@ export class ParamsMiddleware implements NestMiddleware {
   async use(req: any, res: any, next: () => void) {
     const authorizationToken = req?.headers?.authorization?.slice(7) || '';
 
-    if (
-      !checkHash(
-        authorizationToken,
-        process.env.BOT_TOKEN,
-        +process.env.AUTHORIZATION_LIFETIME || 0,
-      )
-    )
+    // 🔍 Добавляем отладку
+    console.log("🔍 [DEBUG] Authorization Token:", authorizationToken);
+    console.log("🔍 [DEBUG] BOT_TOKEN:", process.env.BOT_TOKEN);
+    console.log("🔍 [DEBUG] AUTHORIZATION_LIFETIME:", process.env.AUTHORIZATION_LIFETIME);
+
+    const isValid = checkHash(
+      authorizationToken,
+      process.env.BOT_TOKEN,
+      +process.env.AUTHORIZATION_LIFETIME || 0,
+    );
+
+    if (!isValid) {
+      console.error("❌ [ERROR] checkHash() вернул false! Токен не прошел проверку!");
       return res.status(401).json({
         status: false,
         ...Errors.ACCESS_DENIED,
       });
+    }
 
     const userData = JSON.parse(
       decodeURIComponent(authorizationToken)

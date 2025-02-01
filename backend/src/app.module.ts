@@ -29,27 +29,34 @@ import { AdminMiddleware } from './middleware/admin/admin.middleware';
       },
     ]),
     ScheduleModule.forRoot(),
+    
+    // ✅ Подключаем .env (включая Secret Files)
     ConfigModule.forRoot({
-      envFilePath: `.env`,
+      envFilePath: ['.env', '/etc/secrets/.env'],
+      isGlobal: true, // Сделает переменные доступными везде
     }),
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
       serveRoot: '/static',
     }),
+
+    // ✅ Обновляем TypeORM для PostgreSQL
     TypeOrmModule.forRoot({
-      type: 'postgres', // ✅ Меняем MySQL на PostgreSQL
+      type: 'postgres', // Заменяем MySQL на PostgreSQL
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      extra: {
-        connectionLimit: +process.env.DB_CONNECTION_LIMIT,
+      ssl: {
+        rejectUnauthorized: false, // 🔹 Если используешь Render Database
       },
-      autoLoadEntities: true, // ✅ Загружает все сущности автоматически
-      synchronize: true, // ✅ Авто-обновление БД (удобно для разработки)
+      entities: [__dirname + '/entities/*.entity.{js,ts}'],
+      synchronize: true,
       cache: false,
     }),
+
     StartParamsModule,
     InitializeModule,
     AdminModule,

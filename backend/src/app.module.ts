@@ -37,18 +37,17 @@ import { AdminMiddleware } from './middleware/admin/admin.middleware';
       serveRoot: '/static',
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      extra: {
-        connectionLimit: +process.env.DB_CONNECTION_LIMIT,
-      },
+      type: 'postgres', // ✅ Меняем MySQL на PostgreSQL
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
-      charset: 'utf8mb4_general_ci',
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [__dirname + '/entities/*.entity.{js,ts}'],
-      synchronize: true,
+      extra: {
+        connectionLimit: +process.env.DB_CONNECTION_LIMIT,
+      },
+      autoLoadEntities: true, // ✅ Загружает все сущности автоматически
+      synchronize: true, // ✅ Авто-обновление БД (удобно для разработки)
       cache: false,
     }),
     StartParamsModule,

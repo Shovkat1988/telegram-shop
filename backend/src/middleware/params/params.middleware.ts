@@ -4,6 +4,9 @@ import checkHash from 'tgwa-params-checker';
 import { UserDataDto } from 'src/dto/user-data.dto';
 import * as TelegramBot from 'node-telegram-bot-api';
 import Errors from 'src/errors.enum';
+import * as dotenv from 'dotenv';
+
+dotenv.config(); // Перезагружаем переменные окружения
 
 @Injectable()
 export class ParamsMiddleware implements NestMiddleware {
@@ -11,11 +14,20 @@ export class ParamsMiddleware implements NestMiddleware {
 
   async use(req: any, res: any, next: () => void) {
     const authorizationToken = req?.headers?.authorization?.slice(7) || '';
-
-    // 🔍 Добавляем отладку
+    
+    // 🔥 Логируем перед проверкой
     console.log("🔍 [DEBUG] Authorization Token:", authorizationToken);
-    console.log("🔍 [DEBUG] BOT_TOKEN:", process.env.BOT_TOKEN);
+    console.log("🔍 [DEBUG] BOT_TOKEN из process.env:", process.env.BOT_TOKEN);
     console.log("🔍 [DEBUG] AUTHORIZATION_LIFETIME:", process.env.AUTHORIZATION_LIFETIME);
+
+    // ✅ Проверяем, действительно ли `BOT_TOKEN` обновился
+    if (!process.env.BOT_TOKEN || process.env.BOT_TOKEN.startsWith('7603396304')) {
+      console.error("❌ [ERROR] Обнаружен старый BOT_TOKEN! Проверь .env");
+      return res.status(500).json({
+        status: false,
+        message: "Ошибка сервера: используется старый BOT_TOKEN",
+      });
+    }
 
     const isValid = checkHash(
       authorizationToken,
@@ -46,9 +58,7 @@ export class ParamsMiddleware implements NestMiddleware {
       await bot.sendMessage(
         user.user_id,
         `Доступ к магазину <b>закрыт</b>. Ваш аккаунт заблокирован.`,
-        {
-          parse_mode: 'HTML',
-        },
+        { parse_mode: 'HTML' }
       );
 
       return res.status(401).json({
@@ -57,11 +67,7 @@ export class ParamsMiddleware implements NestMiddleware {
       });
     }
 
-    req.headers = {
-      ...req.headers,
-      user,
-    };
-
+    req.headers = { ...req.headers, user };
     next();
   }
 }

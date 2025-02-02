@@ -1,0 +1,38 @@
+{
+  "name": "mac-dostavka-bot-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "homepage": "./",
+  "scripts": {
+    "dev": "vite --port=3000 --host",
+    "build": "yarn prettier && vite build --base=./",
+    "prettier": "npx prettier --write .",
+    "deploy": "yarn build && kokateam-deploy"
+  },
+  "dependencies": {
+    "@gravity-ui/uikit": "^6.0.0",
+    "@kokateam/router-vkminiapps": "^0.2.0",
+    "@vkontakte/icons": "^2.31.0",
+    "@vkontakte/vkui": "4.41.0",
+    "@vkruglikov/react-telegram-web-app": "^2.1.9",
+    "inputmask": "^5.0.7",
+    "kokateam-infscroll": "^1.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recoil": "^0.7.7"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.47",
+    "@types/react-dom": "^17.0.17",
+    "@vitejs/plugin-react-swc": "^3.3.0",
+    "eruda": "^3.0.0",
+    "eruda-code": "^2.1.0",
+    "eruda-dom": "^2.0.0",
+    "kokateam-deploy": "^1.0.27",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "vite": "^4.3.3",
+    "vite-plugin-mkcert": "^1.17.2",
+    "vite-svg-loader": "^4.0.0"
+  }
+}

@@ -1,0 +1,201 @@
+@import "@vkontakte/vkui/dist/vkui.css";
+
+.gray {
+  color: var(--text_secondary);
+}
+
+.vkuispace_gray,
+[scheme="space_gray"],
+body[scheme="space_gray"] {
+  --background_content: #000000;
+}
+
+body,
+.Header {
+  user-select: none;
+}
+
+.vkuiTabbarItem {
+  .vkuiTappable {
+    display: none;
+  }
+}
+
+.SimpleCell {
+  border-radius: 8px;
+}
+
+.panelPadding {
+  margin: 5px 10px;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.doubleflex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.basicFlex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex > * {
+  flex: 0 0 calc(50% - 12px);
+  margin: 0 5px 10px;
+  width: 50%;
+}
+
+.doubleflex > * {
+  flex: 0 0 calc(33% - 12px);
+  margin: 0 5px 10px;
+  width: 33%;
+}
+
+.ContentCard.vkuiCard--md-outline:before {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.p1 {
+  padding: 1px;
+}
+
+.ofc img {
+  object-fit: contain;
+}
+
+.ContentCard img {
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.ofc .Avatar {
+  background: none !important;
+  border: none;
+  box-shadow: none;
+  height: auto;
+}
+
+.ofc .vkuiAvatar--shadow:after {
+  display: none;
+}
+
+.DivFix {
+  margin-top: -10px;
+}
+
+.p3 {
+  padding: 3px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.p5 {
+  padding: 5px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.vkuiModalPage--s .vkuiModalPage__in-wrap {
+  max-width: 100%;
+}
+
+.rightButton {
+  margin-left: 4px;
+  padding: 0 20px;
+}
+
+.loader {
+  .Avatar {
+    background: none;
+    box-shadow: none;
+  }
+
+  .vkuiAvatar--shadow:after {
+    display: none;
+  }
+}
+
+.productModal,
+.productCell {
+  img {
+    width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+  }
+}
+
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
+
+.secondary {
+  color: var(--text_secondary);
+}
+
+.Checkbox {
+  border-radius: 12px;
+}
+
+.cart {
+  .SimpleCell {
+    border: none;
+  }
+
+  .vkuiAvatar--shadow:after {
+    display: none;
+  }
+
+  .vkuiAvatar {
+    background: none;
+  }
+}
+
+.primary {
+  color: var(--text_primary);
+}
+
+.tripleItems {
+  img {
+    max-height: 100px;
+  }
+
+  .vkuiContentCard__body {
+    padding: 5px 7px;
+
+    .itemName {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+}
+
+.FormItem {
+  margin-top: -10px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.mr8 {
+  margin-right: 8px;
+}
+
+.small {
+  font-size: 12px;
+}
